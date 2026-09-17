@@ -1,0 +1,4695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+<title>Study Garden 🌱</title>
+
+<style>
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+  --bg: #f3faf5;
+  --surface: #ffffff;
+  --surface-soft: #f8fcf9;
+
+  --green-900: #123c27;
+  --green-800: #1d5b39;
+  --green-700: #2f7d52;
+  --green-600: #49a96d;
+  --green-500: #71c58d;
+
+  --green-light: #e9f7ed;
+  --green-lighter: #f2faf4;
+
+  --yellow: #f0c95d;
+  --yellow-light: #fff8dc;
+
+  --red: #dc6973;
+  --red-light: #fff0f2;
+
+  --text: #213128;
+  --muted: #7c8a81;
+
+  --border: #e2ece5;
+
+  --shadow:
+    0 14px 40px rgba(36, 86, 54, 0.08);
+
+  --radius: 22px;
+}
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      #e6f8eb 0,
+      transparent 27%
+    ),
+    radial-gradient(
+      circle at 100% 0%,
+      #edf9f0 0,
+      transparent 25%
+    ),
+    var(--bg);
+
+  color: var(--text);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+
+  overflow-x: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   FLOATING BACKGROUND LEAVES
+========================================================= */
+
+#gardenBackground {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bg-leaf {
+  position: absolute;
+  opacity: 0.09;
+  font-size: 18px;
+
+  animation:
+    leafFloat var(--duration)
+    ease-in-out
+    infinite;
+
+  animation-delay: var(--delay);
+}
+
+@keyframes leafFloat {
+
+  0% {
+    transform:
+      translateY(0)
+      rotate(0deg);
+  }
+
+  50% {
+    transform:
+      translateY(-20px)
+      rotate(10deg);
+  }
+
+  100% {
+    transform:
+      translateY(0)
+      rotate(0deg);
+  }
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+  width: min(1120px, calc(100% - 28px));
+
+  margin: 0 auto;
+
+  padding:
+    max(22px, env(safe-area-inset-top))
+    0
+    max(45px, env(safe-area-inset-bottom));
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  margin-bottom: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+}
+
+.logo {
+  width: 45px;
+  height: 45px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 15px;
+
+  background: var(--green-600);
+
+  color: white;
+
+  font-size: 23px;
+
+  box-shadow:
+    0 8px 22px rgba(73,169,109,.20);
+}
+
+.brand h1 {
+  margin: 0;
+
+  font-size: 22px;
+
+  letter-spacing: -.7px;
+}
+
+.brand p {
+  margin: 2px 0 0;
+
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.nav {
+  display: flex;
+
+  gap: 4px;
+
+  padding: 4px;
+
+  background: rgba(255,255,255,.88);
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 14px;
+}
+
+.nav button {
+  border: 0;
+
+  background: transparent;
+
+  color: var(--muted);
+
+  padding:
+    9px
+    14px;
+
+  border-radius: 10px;
+
+  font-weight: 750;
+}
+
+.nav button.active {
+  background: var(--green-light);
+
+  color: var(--green-800);
+}
+
+/* =========================================================
+   BOX
+========================================================= */
+
+.box {
+  background: var(--surface);
+
+  border:
+    1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+}
+
+/* =========================================================
+   HOME
+========================================================= */
+
+.dashboard {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    minmax(280px,320px);
+
+  gap: 18px;
+}
+
+.hero {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 26px;
+}
+
+.hero::after {
+  content: "🌿";
+
+  position: absolute;
+
+  right: 18px;
+  bottom: 2px;
+
+  font-size: 95px;
+
+  opacity: .06;
+}
+
+.hero h2 {
+  margin: 0;
+
+  font-size:
+    clamp(27px,4vw,37px);
+
+  letter-spacing: -1.4px;
+}
+
+.hero p {
+  max-width: 540px;
+
+  color: var(--muted);
+
+  line-height: 1.55;
+}
+
+.quick-button {
+  border: 0;
+
+  padding:
+    14px
+    18px;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green-700),
+      var(--green-500)
+    );
+
+  color: white;
+
+  font-weight: 850;
+
+  box-shadow:
+    0 9px 24px
+    rgba(47,125,82,.20);
+
+  transition: .2s;
+}
+
+.quick-button:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section-title {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  margin:
+    24px 0
+    11px;
+}
+
+.section-title h3 {
+  margin: 0;
+
+  font-size: 16px;
+}
+
+.section-title span {
+  color: var(--muted);
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   FOLDERS
+========================================================= */
+
+.folders {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill,minmax(210px,1fr));
+
+  gap: 11px;
+}
+
+.folder {
+  padding: 16px;
+
+  background: white;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 17px;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.folder:hover {
+  transform: translateY(-2px);
+
+  border-color: #c8dfcf;
+
+  box-shadow:
+    0 8px 22px
+    rgba(42,100,60,.07);
+}
+
+.folder-top {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+}
+
+.folder-icon {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+
+  background:
+    var(--green-light);
+
+  font-size: 20px;
+}
+
+.folder-menu {
+  border: 0;
+
+  background: transparent;
+
+  color: #98a39b;
+
+  font-size: 18px;
+}
+
+.folder h4 {
+  margin:
+    12px
+    0
+    3px;
+
+  font-size: 15px;
+}
+
+.folder p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.folder-progress {
+  height: 6px;
+
+  margin-top: 13px;
+
+  background: #edf3ee;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+}
+
+.folder-progress div {
+  height: 100%;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--green-600),
+      var(--green-500)
+    );
+}
+
+.add-folder {
+  min-height: 145px;
+
+  display: grid;
+  place-items: center;
+
+  border:
+    1px dashed #bcd6c3;
+
+  background:
+    var(--green-lighter);
+
+  color:
+    var(--green-700);
+
+  font-weight: 800;
+}
+
+/* =========================================================
+   DAILY PANEL
+========================================================= */
+
+.daily {
+  padding: 20px;
+}
+
+.daily h3 {
+  margin: 0;
+
+  font-size: 16px;
+}
+
+.daily-sub {
+  margin-top: 4px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.big-score {
+  margin-top: 17px;
+
+  padding: 18px;
+
+  border-radius: 17px;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      #edf9f0,
+      #f9fdfa
+    );
+}
+
+.big-score .number {
+  font-size: 38px;
+
+  font-weight: 900;
+
+  color: var(--green-800);
+}
+
+.big-score .label {
+  color: var(--muted);
+
+  font-size: 10px;
+}
+
+.rank {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 8px;
+
+  padding:
+    7px
+    10px;
+
+  border-radius: 999px;
+
+  background:
+    var(--yellow-light);
+
+  color:
+    #7b6829;
+
+  font-size: 11px;
+
+  font-weight: 850;
+}
+
+.stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap: 8px;
+
+  margin-top: 11px;
+}
+
+.stat {
+  padding: 11px;
+
+  border:
+    1px solid #e1eee4;
+
+  border-radius: 14px;
+
+  background:
+    var(--green-lighter);
+
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+
+  font-size: 20px;
+
+  color: var(--green-800);
+}
+
+.stat span {
+  color: var(--muted);
+
+  font-size: 9px;
+}
+
+/* =========================================================
+   EXAM GARDEN
+========================================================= */
+
+.exam-garden {
+  position: relative;
+
+  overflow: hidden;
+
+  margin-top: 12px;
+
+  padding: 18px;
+
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #eff9f1,
+      #fbfefb
+    );
+
+  border:
+    1px solid #e0eee3;
+}
+
+.exam-garden h3 {
+  margin: 0;
+
+  font-size: 15px;
+}
+
+.exam-days {
+  margin-top: 7px;
+
+  color: var(--green-800);
+
+  font-size: 27px;
+
+  font-weight: 900;
+}
+
+.exam-days small {
+  font-size: 10px;
+
+  color: var(--muted);
+
+  font-weight: 600;
+}
+
+.corner-leaf {
+  position: absolute;
+
+  opacity: .13;
+
+  font-size: 28px;
+}
+
+.corner-leaf.one {
+  top: 5px;
+  right: 3px;
+
+  transform: rotate(20deg);
+}
+
+.corner-leaf.two {
+  top: 25px;
+  right: 34px;
+
+  transform: rotate(-18deg);
+}
+
+.garden-stage {
+  position: relative;
+
+  height: 130px;
+
+  margin-top: 10px;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: center;
+}
+
+.ground {
+  position: absolute;
+
+  bottom: 0;
+
+  width: 100%;
+
+  height: 8px;
+
+  border-radius: 999px;
+
+  background:
+    #d7e9db;
+}
+
+.tree {
+  position: relative;
+
+  transform-origin:
+    bottom center;
+
+  transition:
+    transform .7s ease;
+}
+
+.tree-trunk {
+  width: 12px;
+
+  height:
+    var(--trunk-height);
+
+  margin: auto;
+
+  border-radius:
+    8px
+    8px
+    3px
+    3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #7d5940,
+      #a67b58,
+      #704e39
+    );
+}
+
+.tree-crown {
+  position: absolute;
+
+  left: 50%;
+
+  bottom:
+    calc(
+      var(--trunk-height) - 2px
+    );
+
+  width: 135px;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 3px;
+
+  transform:
+    translateX(-50%);
+}
+
+.tree-leaf {
+  width:
+    var(--leaf-size);
+
+  height:
+    var(--leaf-size);
+
+  border-radius:
+    70%
+    30%
+    70%
+    30%;
+
+  background:
+    var(--green-600);
+
+  transform:
+    rotate(
+      var(--rotation)
+    );
+
+  box-shadow:
+    0 3px 7px
+    rgba(47,125,82,.12);
+}
+
+.garden-progress {
+  height: 7px;
+
+  margin-top: 9px;
+
+  border-radius: 999px;
+
+  background: #dfeee2;
+
+  overflow: hidden;
+}
+
+.garden-progress > div {
+  height: 100%;
+
+  width: 0%;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--green-600),
+      #8dce9d
+    );
+
+  transition:
+    width .7s ease;
+}
+
+.garden-note {
+  margin-top: 7px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+
+  line-height: 1.45;
+}
+
+/* =========================================================
+   STUDY PAGE
+========================================================= */
+
+.study-wrap {
+  display: flex;
+
+  justify-content: center;
+
+  width: 100%;
+}
+
+.study-box {
+  position: relative;
+
+  width:
+    min(730px,100%);
+
+  min-height: 570px;
+
+  padding: 22px;
+
+  background: white;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 24px;
+
+  box-shadow: var(--shadow);
+
+  overflow: hidden;
+}
+
+.study-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 7px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.progress {
+  height: 7px;
+
+  background: #edf2ee;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+
+  width: 0%;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--green-700),
+      var(--green-500)
+    );
+
+  transition:
+    width .3s ease;
+}
+
+.study-inner {
+  width:
+    min(610px,100%);
+
+  margin:
+    75px auto 0;
+
+  text-align: center;
+}
+
+.study-topic {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-bottom: 14px;
+
+  padding:
+    6px
+    10px;
+
+  border-radius: 999px;
+
+  background:
+    var(--green-light);
+
+  color:
+    var(--green-800);
+
+  font-size: 10px;
+
+  font-weight: 850;
+
+  text-transform: uppercase;
+}
+
+.study-question {
+  margin-bottom: 20px;
+
+  font-size:
+    clamp(
+      24px,
+      4vw,
+      34px
+    );
+
+  line-height: 1.17;
+
+  letter-spacing: -.8px;
+
+  font-weight: 850;
+}
+
+.answer-area {
+  width: 100%;
+}
+
+.answer-input {
+  width: 100%;
+
+  min-height: 105px;
+
+  padding: 13px;
+
+  resize: vertical;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 15px;
+
+  outline: none;
+
+  background: white;
+
+  color: var(--text);
+}
+
+.answer-input:focus {
+  border-color: #9bcaaa;
+
+  box-shadow:
+    0 0 0 4px #eaf7ee;
+}
+
+.mcq {
+  display: grid;
+
+  gap: 9px;
+}
+
+.mcq button {
+  width: 100%;
+
+  padding:
+    13px
+    15px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 13px;
+
+  background: white;
+
+  text-align: left;
+
+  color: var(--text);
+
+  font-weight: 700;
+
+  transition: .15s;
+}
+
+.mcq button:hover {
+  background:
+    #f8fcf9;
+
+  border-color:
+    #acd1b5;
+}
+
+.mcq .wrong {
+  background:
+    var(--red-light);
+
+  border-color:
+    var(--red);
+
+  color:
+    #b6424c;
+}
+
+.mcq .correct {
+  background:
+    var(--green-light);
+
+  border-color:
+    var(--green-600);
+
+  color:
+    #26724b;
+}
+
+.study-controls {
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 14px;
+}
+
+/* =========================================================
+   FEEDBACK
+========================================================= */
+
+.feedback {
+  margin-top: 13px;
+
+  padding: 12px;
+
+  border-radius: 13px;
+
+  font-size: 13px;
+}
+
+.feedback.good {
+  background:
+    var(--green-light);
+
+  color:
+    #26744b;
+}
+
+.feedback.bad {
+  background:
+    var(--red-light);
+
+  color:
+    #b6424c;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+  border: 0;
+
+  padding:
+    12px
+    16px;
+
+  border-radius: 12px;
+
+  font-weight: 800;
+}
+
+.btn.green {
+  background:
+    var(--green-700);
+
+  color: white;
+
+  box-shadow:
+    0 7px 17px
+    rgba(47,125,82,.18);
+}
+
+.btn.soft {
+  background:
+    var(--green-light);
+
+  color:
+    var(--green-800);
+}
+
+.btn.red {
+  background:
+    var(--red-light);
+
+  color:
+    var(--red);
+}
+
+.btn.gray {
+  background:
+    #f0f3f1;
+
+  color:
+    #59655d;
+}
+
+/* =========================================================
+   CORRECT / WRONG ANIMATION
+========================================================= */
+
+.card-correct {
+  animation:
+    swipeRight
+    .58s
+    cubic-bezier(.2,.8,.2,1)
+    forwards;
+}
+
+.card-wrong {
+  animation:
+    wrongShake
+    .42s
+    ease;
+}
+
+@keyframes swipeRight {
+
+  0% {
+    transform:
+      translateX(0)
+      rotate(0);
+    opacity: 1;
+  }
+
+  45% {
+    transform:
+      translateX(45px)
+      rotate(2deg);
+    opacity: .88;
+  }
+
+  100% {
+    transform:
+      translateX(420px)
+      rotate(8deg);
+    opacity: 0;
+  }
+}
+
+@keyframes wrongShake {
+
+  0% {
+    transform:
+      translateX(0);
+  }
+
+  20% {
+    transform:
+      translateX(-18px)
+      rotate(-1deg);
+  }
+
+  40% {
+    transform:
+      translateX(15px)
+      rotate(1deg);
+  }
+
+  60% {
+    transform:
+      translateX(-9px);
+  }
+
+  80% {
+    transform:
+      translateX(5px);
+  }
+
+  100% {
+    transform:
+      translateX(0);
+  }
+}
+
+/* =========================================================
+   XP POPUP
+========================================================= */
+
+.xp-pop {
+  position: absolute;
+
+  left: 50%;
+  top: 44%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  color:
+    var(--green-700);
+
+  font-size: 17px;
+
+  font-weight: 900;
+
+  z-index: 20;
+
+  animation:
+    xpFloat
+    .9s
+    ease
+    forwards;
+}
+
+@keyframes xpFloat {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(
+        -50%,
+        -20%
+      )
+      scale(.8);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(
+        -50%,
+        -100%
+      )
+      scale(1.1);
+  }
+}
+
+/* =========================================================
+   SESSION FINISHED
+========================================================= */
+
+.session-message {
+  padding: 26px;
+
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #effaf2,
+      #ffffff
+    );
+
+  text-align: center;
+}
+
+.session-message .emoji {
+  font-size: 42px;
+}
+
+/* =========================================================
+   CREATE PAGE
+========================================================= */
+
+.create-wrap {
+  max-width: 700px;
+
+  margin: 0 auto;
+}
+
+.create-box {
+  padding: 23px;
+}
+
+label {
+  display: block;
+
+  margin:
+    14px
+    0
+    6px;
+
+  color: #59655d;
+
+  font-size: 11px;
+
+  font-weight: 850;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 12px;
+
+  padding:
+    11px
+    12px;
+
+  outline: none;
+
+  background: white;
+
+  color: var(--text);
+}
+
+textarea {
+  min-height: 105px;
+
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #9bcaaa;
+
+  box-shadow:
+    0 0 0 4px #ebf7ee;
+}
+
+.folder-select-row {
+  display: flex;
+
+  gap: 8px;
+}
+
+.folder-select-row select {
+  flex: 1;
+}
+
+.choice-row {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    38px;
+
+  gap: 7px;
+
+  margin-bottom: 7px;
+}
+
+.remove-choice {
+  border: 0;
+
+  border-radius: 10px;
+
+  background:
+    var(--red-light);
+
+  color:
+    var(--red);
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 200;
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 18px;
+
+  background:
+    rgba(20,50,32,.28);
+
+  backdrop-filter:
+    blur(5px);
+}
+
+.modal-box {
+  width:
+    min(400px,100%);
+
+  padding: 22px;
+
+  border-radius: 22px;
+
+  background: white;
+
+  box-shadow:
+    0 25px 60px
+    rgba(20,50,30,.18);
+}
+
+.modal-box h3 {
+  margin-top: 0;
+}
+
+.modal-actions {
+  display: flex;
+
+  gap: 8px;
+
+  margin-top: 15px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:850px) {
+
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media(max-width:650px) {
+
+  header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .nav {
+    width: 100%;
+  }
+
+  .nav button {
+    flex: 1;
+  }
+
+  .app {
+    width:
+      min(100% - 18px, 700px);
+  }
+
+  .study-box {
+    min-height: 520px;
+
+    padding: 18px;
+  }
+
+  .study-inner {
+    margin-top: 55px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND LEAVES -->
+<div id="gardenBackground"></div>
+
+
+<div class="app">
+
+<!-- ======================================================
+     HEADER
+====================================================== -->
+
+<header>
+
+  <div class="brand">
+
+    <div class="logo">
+      🌱
+    </div>
+
+    <div>
+
+      <h1>
+        Study Garden
+      </h1>
+
+      <p>
+        Grow a little smarter every day.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <nav class="nav">
+
+    <button
+      id="homeTab"
+      class="active">
+      Home
+    </button>
+
+    <button
+      id="studyTab">
+      Study
+    </button>
+
+    <button
+      id="createTab">
+      Create
+    </button>
+
+  </nav>
+
+</header>
+
+
+<!-- ======================================================
+     HOME
+====================================================== -->
+
+<section
+  id="homePage">
+
+  <div class="dashboard">
+
+    <div>
+
+      <div class="box hero">
+
+        <h2>
+          Ready to grow? 🌱
+        </h2>
+
+        <p>
+          Mix your topics together or
+          focus on one subject at a time.
+          Every correct answer helps your
+          garden grow.
+        </p>
+
+        <button
+          id="quickMixBtn"
+          class="quick-button">
+
+          🌿 Start Quick Mix
+
+        </button>
+
+      </div>
+
+
+      <div class="section-title">
+
+        <h3>
+          My topics
+        </h3>
+
+        <span>
+          Tap a folder to study
+        </span>
+
+      </div>
+
+
+      <div
+        id="folders"
+        class="folders">
+      </div>
+
+    </div>
+
+
+    <!-- DAILY PERFORMANCE -->
+
+    <aside>
+
+      <div class="box daily">
+
+        <h3>
+          Today's garden ☀️
+        </h3>
+
+        <div class="daily-sub">
+          Your progress today
+        </div>
+
+
+        <div class="big-score">
+
+          <div
+            id="dailyXP"
+            class="number">
+            0
+          </div>
+
+          <div class="label">
+            XP earned today
+          </div>
+
+          <div
+            id="dailyRank"
+            class="rank">
+            🌱 Seedling
+          </div>
+
+        </div>
+
+
+        <div class="stats">
+
+          <div class="stat">
+
+            <strong
+              id="todayCorrect">
+              0
+            </strong>
+
+            <span>
+              Correct
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong
+              id="todayAccuracy">
+              0%
+            </strong>
+
+            <span>
+              Accuracy
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong
+              id="streak">
+              0
+            </strong>
+
+            <span>
+              Day streak
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong
+              id="overallXP">
+              0
+            </strong>
+
+            <span>
+              Total XP
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div
+          style="
+            text-align:center;
+            margin-top:10px;
+          ">
+
+          <div
+            style="
+              color:var(--muted);
+              font-size:10px;
+            ">
+            Overall rank
+          </div>
+
+          <div
+            id="overallRank"
+            class="rank">
+            🌱 Seedling
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- EXAM GARDEN -->
+
+      <div class="box exam-garden">
+
+        <span
+          class="corner-leaf one">
+          🍃
+        </span>
+
+        <span
+          class="corner-leaf two">
+          🌿
+        </span>
+
+
+        <h3>
+          Board Exam Garden 🌳
+        </h3>
+
+
+        <div class="exam-days">
+
+          <span id="examDays">
+            --
+          </span>
+
+          <small>
+            days to grow
+          </small>
+
+        </div>
+
+
+        <div class="garden-stage">
+
+          <div
+            id="growthTree"
+            class="tree">
+
+            <div
+              id="treeCrown"
+              class="tree-crown">
+            </div>
+
+            <div
+              class="tree-trunk"
+              style="
+                --trunk-height:45px;
+              ">
+            </div>
+
+          </div>
+
+
+          <div class="ground">
+          </div>
+
+        </div>
+
+
+        <div class="garden-progress">
+
+          <div
+            id="gardenProgress">
+          </div>
+
+        </div>
+
+
+        <div
+          id="gardenNote"
+          class="garden-note">
+        </div>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     STUDY
+====================================================== -->
+
+<section
+  id="studyPage"
+  class="hidden">
+
+  <div class="study-wrap">
+
+    <main class="study-box">
+
+      <div class="study-top">
+
+        <span
+          id="studyProgress">
+          0 / 0
+        </span>
+
+        <span
+          id="studyMode">
+          Quick Mix
+        </span>
+
+      </div>
+
+
+      <div class="progress">
+
+        <div
+          id="progressFill"
+          class="progress-fill">
+        </div>
+
+      </div>
+
+
+      <div
+        id="studyContent"
+        class="study-inner">
+      </div>
+
+    </main>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     CREATE
+====================================================== -->
+
+<section
+  id="createPage"
+  class="create-wrap hidden">
+
+  <div class="box create-box">
+
+    <h2 style="margin-top:0">
+      Plant a new flashcard 🌼
+    </h2>
+
+    <p
+      style="
+        margin-top:-6px;
+        color:var(--muted);
+        font-size:12px;
+      ">
+
+      Put every question in its own topic.
+
+    </p>
+
+
+    <label>
+      Topic
+    </label>
+
+
+    <div class="folder-select-row">
+
+      <select
+        id="cardFolder">
+      </select>
+
+
+      <button
+        id="newFolderFromCreate"
+        class="btn soft">
+
+        +
+
+      </button>
+
+    </div>
+
+
+    <label>
+      Question
+    </label>
+
+
+    <textarea
+      id="newQuestion"
+      placeholder="Example: What is the capital of the Philippines?">
+    </textarea>
+
+
+    <label>
+      Answer format
+    </label>
+
+
+    <select
+      id="questionType">
+
+      <option value="typed">
+        Type an answer
+      </option>
+
+      <option value="mcq">
+        Multiple choice
+      </option>
+
+    </select>
+
+
+    <!-- TYPED -->
+
+    <div
+      id="typedBox">
+
+      <label>
+        Correct answer
+      </label>
+
+      <input
+        id="typedAnswer"
+        placeholder="Example: Manila">
+
+    </div>
+
+
+    <!-- MCQ -->
+
+    <div
+      id="mcqBox"
+      class="hidden">
+
+      <label>
+        Choices
+      </label>
+
+      <div
+        id="choices">
+      </div>
+
+
+      <button
+        id="addChoice"
+        class="btn soft">
+
+        + Add choice
+
+      </button>
+
+
+      <label>
+        Correct choice
+      </label>
+
+
+      <select
+        id="correctChoice">
+      </select>
+
+    </div>
+
+
+    <button
+      id="addCard"
+      class="btn green"
+      style="
+        width:100%;
+        margin-top:17px;
+      ">
+
+      🌱 Add Flashcard
+
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     FOLDER MODAL
+====================================================== -->
+
+<div
+  id="folderModal"
+  class="modal hidden">
+
+  <div class="modal-box">
+
+    <h3>
+      Create a new topic 🌿
+    </h3>
+
+    <input
+      id="folderName"
+      placeholder="Example: Structural Engineering">
+
+
+    <div class="modal-actions">
+
+      <button
+        id="cancelFolder"
+        class="btn soft"
+        style="flex:1">
+
+        Cancel
+
+      </button>
+
+
+      <button
+        id="saveFolder"
+        class="btn green"
+        style="flex:1">
+
+        Create
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const FOLDER_KEY =
+  "study_garden_folders_final";
+
+const CARD_KEY =
+  "study_garden_cards_final";
+
+const STATS_KEY =
+  "study_garden_stats_final";
+
+
+let folders =
+  JSON.parse(
+    localStorage.getItem(FOLDER_KEY)
+  ) || [];
+
+
+let cards =
+  JSON.parse(
+    localStorage.getItem(CARD_KEY)
+  ) || [];
+
+
+let stats =
+  JSON.parse(
+    localStorage.getItem(STATS_KEY)
+  ) || {
+
+    totalXP: 0,
+
+    history: {}
+
+  };
+
+
+/* =========================================================
+   DEFAULT FOLDER
+========================================================= */
+
+if (
+  folders.length === 0
+) {
+
+  folders.push({
+
+    id: createID(),
+
+    name: "General",
+
+    emoji: "🌱"
+
+  });
+
+
+  saveFolders();
+
+}
+
+
+/* =========================================================
+   STUDY VARIABLES
+========================================================= */
+
+let studyQueue = [];
+
+let studyIndex = 0;
+
+let selectedCard = null;
+
+let firstAttempt = true;
+
+
+/* =========================================================
+   RANK SYSTEM
+========================================================= */
+
+const ranks = [
+
+  {
+    min: 0,
+    name: "Seedling",
+    emoji: "🌱"
+  },
+
+  {
+    min: 100,
+    name: "Sprout",
+    emoji: "🌿"
+  },
+
+  {
+    min: 300,
+    name: "Growing Leaf",
+    emoji: "🍃"
+  },
+
+  {
+    min: 700,
+    name: "Bloom",
+    emoji: "🌸"
+  },
+
+  {
+    min: 1500,
+    name: "Evergreen",
+    emoji: "🌳"
+  },
+
+  {
+    min: 3000,
+    name: "Knowledge Master",
+    emoji: "🏆"
+  }
+
+];
+
+
+function getRank(xp) {
+
+  let rank =
+    ranks[0];
+
+
+  ranks.forEach(item => {
+
+    if (
+      xp >= item.min
+    ) {
+
+      rank = item;
+
+    }
+
+  });
+
+
+  return rank;
+
+}
+
+
+/* =========================================================
+   PAGE ELEMENTS
+========================================================= */
+
+const homePage =
+  document.getElementById(
+    "homePage"
+  );
+
+const studyPage =
+  document.getElementById(
+    "studyPage"
+  );
+
+const createPage =
+  document.getElementById(
+    "createPage"
+  );
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+document
+  .getElementById(
+    "homeTab"
+  )
+  .onclick = () => {
+
+    showPage(homePage);
+
+    activateTab("homeTab");
+
+    renderHome();
+
+  };
+
+
+document
+  .getElementById(
+    "studyTab"
+  )
+  .onclick = () => {
+
+    startQuickMix();
+
+  };
+
+
+document
+  .getElementById(
+    "createTab"
+  )
+  .onclick = () => {
+
+    showPage(createPage);
+
+    activateTab("createTab");
+
+    populateFolderSelect();
+
+  };
+
+
+function showPage(page) {
+
+  homePage.classList.add(
+    "hidden"
+  );
+
+  studyPage.classList.add(
+    "hidden"
+  );
+
+  createPage.classList.add(
+    "hidden"
+  );
+
+
+  page.classList.remove(
+    "hidden"
+  );
+
+}
+
+
+function activateTab(id) {
+
+  document
+    .querySelectorAll(
+      ".nav button"
+    )
+    .forEach(
+      button =>
+        button.classList.remove(
+          "active"
+        )
+    );
+
+
+  document
+    .getElementById(id)
+    .classList.add(
+      "active"
+    );
+
+}
+
+
+/* =========================================================
+   QUICK MIX
+========================================================= */
+
+document
+  .getElementById(
+    "quickMixBtn"
+  )
+  .onclick =
+    startQuickMix;
+
+
+function startQuickMix() {
+
+  if (
+    cards.length === 0
+  ) {
+
+    alert(
+      "Your garden is empty 🌱\n\nCreate some flashcards first!"
+    );
+
+    return;
+
+  }
+
+
+  studyQueue =
+    shuffle(
+      [...cards]
+    );
+
+
+  beginStudy(
+    studyQueue,
+    "Quick Mix 🌿"
+  );
+
+}
+
+
+/* =========================================================
+   FOLDER STUDY
+========================================================= */
+
+function startFolder(folderID) {
+
+  const folderCards =
+    cards.filter(
+      card =>
+        card.folderID ===
+        folderID
+    );
+
+
+  if (
+    folderCards.length === 0
+  ) {
+
+    alert(
+      "This topic doesn't have any cards yet 🌱"
+    );
+
+    return;
+
+  }
+
+
+  const folder =
+    folders.find(
+      f =>
+        f.id ===
+        folderID
+    );
+
+
+  studyQueue =
+    shuffle(
+      [...folderCards]
+    );
+
+
+  beginStudy(
+    studyQueue,
+    `${folder.emoji} ${folder.name}`
+  );
+
+}
+
+
+function beginStudy(
+  queue,
+  title
+) {
+
+  studyQueue = queue;
+
+  studyIndex = 0;
+
+  showPage(studyPage);
+
+  activateTab("studyTab");
+
+  document
+    .getElementById(
+      "studyMode"
+    )
+    .textContent =
+      title;
+
+
+  renderStudy();
+
+}
+
+
+/* =========================================================
+   RENDER STUDY
+========================================================= */
+
+function renderStudy() {
+
+  const content =
+    document.getElementById(
+      "studyContent"
+    );
+
+
+  if (
+    studyQueue.length === 0 ||
+    studyIndex >=
+    studyQueue.length
+  ) {
+
+    showFinished();
+
+    return;
+
+  }
+
+
+  selectedCard =
+    studyQueue[
+      studyIndex
+    ];
+
+
+  firstAttempt = true;
+
+
+  document
+    .getElementById(
+      "studyProgress"
+    )
+    .textContent =
+      `${studyIndex + 1} / ${studyQueue.length}`;
+
+
+  document
+    .getElementById(
+      "progressFill"
+    )
+    .style.width =
+      `${(
+        studyIndex /
+        studyQueue.length
+      ) * 100}%`;
+
+
+  const folder =
+    folders.find(
+      f =>
+        f.id ===
+        selectedCard.folderID
+    );
+
+
+  content.innerHTML = `
+
+    <div class="study-topic">
+
+      ${folder?.emoji || "🌱"}
+
+      ${
+        escapeHTML(
+          folder?.name ||
+          "General"
+        )
+      }
+
+    </div>
+
+
+    <div class="study-question">
+
+      ${
+        escapeHTML(
+          selectedCard.question
+        )
+      }
+
+    </div>
+
+
+    <div
+      class="answer-area"
+      id="studyAnswer">
+
+    </div>
+
+
+    <div
+      id="studyFeedback">
+    </div>
+
+
+    <div
+      class="study-controls">
+
+      <button
+        id="checkAnswer"
+        class="btn green">
+
+        Check answer
+
+      </button>
+
+
+      <button
+        id="nextQuestion"
+        class="btn soft hidden">
+
+        Next →
+
+      </button>
+
+    </div>
+
+  `;
+
+
+  /* =====================================================
+     TYPED
+  ===================================================== */
+
+  if (
+    selectedCard.type ===
+    "typed"
+  ) {
+
+    document
+      .getElementById(
+        "studyAnswer"
+      )
+      .innerHTML = `
+
+        <textarea
+          id="typedResponse"
+          class="answer-input"
+          placeholder="Type your answer...">
+        </textarea>
+
+      `;
+
+
+    setTimeout(() => {
+
+      document
+        .getElementById(
+          "typedResponse"
+        )
+        ?.focus();
+
+    },80);
+
+  }
+
+
+  /* =====================================================
+     MCQ
+  ===================================================== */
+
+  else {
+
+    const area =
+      document.getElementById(
+        "studyAnswer"
+      );
+
+
+    area.innerHTML = `
+
+      <div
+        class="mcq"
+        id="mcqChoices">
+      </div>
+
+    `;
+
+
+    selectedCard
+      .choices
+      .forEach(
+        (choice,index) => {
+
+          const button =
+            document.createElement(
+              "button"
+            );
+
+
+          button.textContent =
+            choice;
+
+
+          button.dataset.index =
+            index;
+
+
+          button.onclick =
+            () => {
+
+              document
+                .querySelectorAll(
+                  "#mcqChoices button"
+                )
+                .forEach(
+                  item =>
+                    item.classList.remove(
+                      "wrong"
+                    )
+                );
+
+
+              button.classList.add(
+                "wrong"
+              );
+
+
+              area.dataset.selected =
+                index;
+
+            };
+
+
+          document
+            .getElementById(
+              "mcqChoices"
+            )
+            .appendChild(
+              button
+            );
+
+        }
+      );
+
+  }
+
+
+  document
+    .getElementById(
+      "checkAnswer"
+    )
+    .onclick =
+      checkAnswer;
+
+}
+
+
+/* =========================================================
+   CHECK ANSWER
+========================================================= */
+
+function checkAnswer() {
+
+  let isCorrect = false;
+
+
+  /* =====================================================
+     TYPED
+  ===================================================== */
+
+  if (
+    selectedCard.type ===
+    "typed"
+  ) {
+
+    const input =
+      document.getElementById(
+        "typedResponse"
+      );
+
+
+    if (
+      !input.value.trim()
+    ) {
+
+      showFeedback(
+        false,
+        "Write an answer first 💭"
+      );
+
+      return;
+
+    }
+
+
+    isCorrect =
+      normalize(
+        input.value
+      ) ===
+      normalize(
+        selectedCard.answer
+      );
+
+  }
+
+
+  /* =====================================================
+     MCQ
+  ===================================================== */
+
+  else {
+
+    const area =
+      document.getElementById(
+        "studyAnswer"
+      );
+
+
+    const selected =
+      area.dataset.selected;
+
+
+    if (
+      selected === undefined
+    ) {
+
+      showFeedback(
+        false,
+        "Pick an answer first 🌷"
+      );
+
+      return;
+
+    }
+
+
+    isCorrect =
+      normalize(
+        selectedCard
+          .choices[selected]
+      ) ===
+      normalize(
+        selectedCard.answer
+      );
+
+
+    document
+      .querySelectorAll(
+        "#mcqChoices button"
+      )
+      .forEach(
+        button => {
+
+          const value =
+            selectedCard
+              .choices[
+                button.dataset.index
+              ];
+
+
+          if (
+            normalize(value) ===
+            normalize(
+              selectedCard.answer
+            )
+          ) {
+
+            button.classList.add(
+              "correct"
+            );
+
+          }
+
+        }
+      );
+
+  }
+
+
+  const today =
+    getTodayKey();
+
+
+  ensureToday(today);
+
+
+  stats
+    .history[today]
+    .attempts++;
+
+
+  /* =====================================================
+     CORRECT
+  ===================================================== */
+
+  if (isCorrect) {
+
+    stats
+      .history[today]
+      .correct++;
+
+
+    let xp =
+      firstAttempt
+        ? 15
+        : 10;
+
+
+    stats
+      .history[today]
+      .xp +=
+      xp;
+
+
+    stats.totalXP +=
+      xp;
+
+
+    saveStats();
+
+
+    showFeedback(
+      true,
+      firstAttempt
+        ? `Perfect! +${xp} XP 🌱`
+        : `Correct! +${xp} XP 🍃`
+    );
+
+
+    showXPPopup(xp);
+
+
+    const studyBox =
+      document.querySelector(
+        ".study-box"
+      );
+
+
+    studyBox.classList.remove(
+      "card-correct",
+      "card-wrong"
+    );
+
+
+    void studyBox.offsetWidth;
+
+
+    studyBox.classList.add(
+      "card-correct"
+    );
+
+
+    if (
+      "vibrate" in navigator
+    ) {
+
+      navigator.vibrate(
+        [35,20,35]
+      );
+
+    }
+
+
+    document
+      .getElementById(
+        "checkAnswer"
+      )
+      .classList.add(
+        "hidden"
+      );
+
+
+    document
+      .getElementById(
+        "nextQuestion"
+      )
+      .classList.remove(
+        "hidden"
+      );
+
+
+    firstAttempt = false;
+
+
+    updateHomePerformance();
+
+
+    setTimeout(
+      () => {
+
+        studyIndex++;
+
+        renderStudy();
+
+      },
+      620
+    );
+
+  }
+
+
+  /* =====================================================
+     WRONG
+  ===================================================== */
+
+  else {
+
+    firstAttempt = false;
+
+
+    const studyBox =
+      document.querySelector(
+        ".study-box"
+      );
+
+
+    studyBox.classList.remove(
+      "card-correct",
+      "card-wrong"
+    );
+
+
+    void studyBox.offsetWidth;
+
+
+    studyBox.classList.add(
+      "card-wrong"
+    );
+
+
+    showFeedback(
+      false,
+      "Not yet 🌿 This card stays until you get it right."
+    );
+
+
+    if (
+      "vibrate" in navigator
+    ) {
+
+      navigator.vibrate(
+        [20,30,20]
+      );
+
+    }
+
+
+    updateHomePerformance();
+
+  }
+
+}
+
+
+/* =========================================================
+   FEEDBACK
+========================================================= */
+
+function showFeedback(
+  correct,
+  message
+) {
+
+  const box =
+    document.getElementById(
+      "studyFeedback"
+    );
+
+
+  box.className =
+    `feedback ${
+      correct
+        ? "good"
+        : "bad"
+    }`;
+
+
+  box.textContent =
+    message;
+
+}
+
+
+/* =========================================================
+   XP POPUP
+========================================================= */
+
+function showXPPopup(
+  amount
+) {
+
+  const box =
+    document.querySelector(
+      ".study-box"
+    );
+
+
+  if (!box) return;
+
+
+  const popup =
+    document.createElement(
+      "div"
+    );
+
+
+  popup.className =
+    "xp-pop";
+
+
+  popup.textContent =
+    `+${amount} XP 🌱`;
+
+
+  box.appendChild(
+    popup
+  );
+
+
+  setTimeout(
+    () => popup.remove(),
+    900
+  );
+
+}
+
+
+/* =========================================================
+   FINISHED SESSION
+========================================================= */
+
+function showFinished() {
+
+  document
+    .getElementById(
+      "progressFill"
+    )
+    .style.width =
+      "100%";
+
+
+  document
+    .getElementById(
+      "studyProgress"
+    )
+    .textContent =
+      "Complete!";
+
+
+  document
+    .getElementById(
+      "studyContent"
+    )
+    .innerHTML = `
+
+      <div class="session-message">
+
+        <div class="emoji">
+          🌸
+        </div>
+
+        <h2>
+          Beautiful work!
+        </h2>
+
+        <p
+          style="
+            color:var(--muted);
+            line-height:1.6;
+          ">
+
+          Another branch added to your
+          knowledge garden.
+
+        </p>
+
+
+        <button
+          class="btn green"
+          id="backHome">
+
+          Back to my garden
+
+        </button>
+
+      </div>
+
+    `;
+
+
+  document
+    .getElementById(
+      "backHome"
+    )
+    .onclick =
+      () => {
+
+        showPage(
+          homePage
+        );
+
+        activateTab(
+          "homeTab"
+        );
+
+        renderHome();
+
+      };
+
+}
+
+
+/* =========================================================
+   HOME PERFORMANCE
+========================================================= */
+
+function updateHomePerformance() {
+
+  renderPerformance();
+
+  renderExamGarden();
+
+}
+
+
+/* =========================================================
+   HOME RENDER
+========================================================= */
+
+function renderHome() {
+
+  renderFolders();
+
+  populateFolderSelect();
+
+  renderPerformance();
+
+  renderExamGarden();
+
+  createBackgroundLeaves();
+
+}
+
+
+/* =========================================================
+   PERFORMANCE
+========================================================= */
+
+function renderPerformance() {
+
+  const today =
+    getTodayKey();
+
+
+  ensureToday(today);
+
+
+  const daily =
+    stats.history[
+      today
+    ];
+
+
+  const dailyRank =
+    getRank(
+      daily.xp
+    );
+
+
+  const overallRank =
+    getRank(
+      stats.totalXP
+    );
+
+
+  document
+    .getElementById(
+      "dailyXP"
+    )
+    .textContent =
+      daily.xp;
+
+
+  document
+    .getElementById(
+      "todayCorrect"
+    )
+    .textContent =
+      daily.correct;
+
+
+  document
+    .getElementById(
+      "todayAccuracy"
+    )
+    .textContent =
+      daily.attempts
+        ? Math.round(
+            daily.correct /
+            daily.attempts *
+            100
+          ) + "%"
+        : "0%";
+
+
+  document
+    .getElementById(
+      "overallXP"
+    )
+    .textContent =
+      stats.totalXP;
+
+
+  document
+    .getElementById(
+      "dailyRank"
+    )
+    .textContent =
+      `${dailyRank.emoji} ${dailyRank.name}`;
+
+
+  document
+    .getElementById(
+      "overallRank"
+    )
+    .textContent =
+      `${overallRank.emoji} ${overallRank.name}`;
+
+
+  document
+    .getElementById(
+      "streak"
+    )
+    .textContent =
+      calculateStreak();
+
+}
+
+
+/* =========================================================
+   FOLDERS
+========================================================= */
+
+const folderIcons = [
+  "🌱",
+  "📚",
+  "📐",
+  "🧠",
+  "🎬",
+  "💻",
+  "🔬",
+  "📝",
+  "✨",
+  "🌿"
+];
+
+
+function renderFolders() {
+
+  const container =
+    document.getElementById(
+      "folders"
+    );
+
+
+  container.innerHTML = "";
+
+
+  folders.forEach(
+    folder => {
+
+      const folderCards =
+        cards.filter(
+          card =>
+            card.folderID ===
+            folder.id
+        );
+
+
+      const completed =
+        folderCards.filter(
+          card =>
+            card.completed
+        ).length;
+
+
+      const percentage =
+        folderCards.length
+          ? completed /
+            folderCards.length *
+            100
+          : 0;
+
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "folder";
+
+
+      item.innerHTML = `
+
+        <div class="folder-top">
+
+          <div class="folder-icon">
+
+            ${folder.emoji}
+
+          </div>
+
+          <button
+            class="folder-menu"
+            title="Delete topic">
+
+            ⋯
+
+          </button>
+
+        </div>
+
+
+        <h4>
+          ${
+            escapeHTML(
+              folder.name
+            )
+          }
+        </h4>
+
+
+        <p>
+          ${folderCards.length}
+          ${
+            folderCards.length === 1
+              ? "card"
+              : "cards"
+          }
+          ${
+            completed
+              ? ` · ${completed} completed`
+              : ""
+          }
+        </p>
+
+
+        <div class="folder-progress">
+
+          <div
+            style="
+              width:${percentage}%;
+            ">
+          </div>
+
+        </div>
+
+      `;
+
+
+      item.onclick =
+        event => {
+
+          if (
+            event.target.closest(
+              ".folder-menu"
+            )
+          ) {
+            return;
+          }
+
+
+          startFolder(
+            folder.id
+          );
+
+        };
+
+
+      item
+        .querySelector(
+          ".folder-menu"
+        )
+        .onclick =
+          event => {
+
+            event.stopPropagation();
+
+            deleteFolder(
+              folder.id
+            );
+
+          };
+
+
+      container.appendChild(
+        item
+      );
+
+    }
+  );
+
+
+  const add =
+    document.createElement(
+      "div"
+    );
+
+
+  add.className =
+    "folder add-folder";
+
+
+  add.textContent =
+    "+ Create new topic";
+
+
+  add.onclick =
+    openFolderModal;
+
+
+  container.appendChild(
+    add
+  );
+
+}
+
+
+/* =========================================================
+   DELETE FOLDER
+========================================================= */
+
+function deleteFolder(
+  folderID
+) {
+
+  if (
+    folders.length <= 1
+  ) {
+
+    alert(
+      "Keep at least one topic 🌱"
+    );
+
+    return;
+
+  }
+
+
+  const folder =
+    folders.find(
+      f =>
+        f.id ===
+        folderID
+    );
+
+
+  const hasCards =
+    cards.some(
+      card =>
+        card.folderID ===
+        folderID
+    );
+
+
+  let message =
+    `Delete "${folder.name}"?`;
+
+
+  if (hasCards) {
+
+    message +=
+      "\n\nIts flashcards will also be deleted.";
+
+  }
+
+
+  if (
+    !confirm(message)
+  ) {
+
+    return;
+
+  }
+
+
+  folders =
+    folders.filter(
+      f =>
+        f.id !==
+        folderID
+    );
+
+
+  cards =
+    cards.filter(
+      card =>
+        card.folderID !==
+        folderID
+    );
+
+
+  saveFolders();
+
+  saveCards();
+
+  renderHome();
+
+}
+
+
+/* =========================================================
+   FOLDER MODAL
+========================================================= */
+
+const folderModal =
+  document.getElementById(
+    "folderModal"
+  );
+
+
+function openFolderModal() {
+
+  folderModal.classList.remove(
+    "hidden"
+  );
+
+
+  document
+    .getElementById(
+      "folderName"
+    )
+    .focus();
+
+}
+
+
+document
+  .getElementById(
+    "cancelFolder"
+  )
+  .onclick =
+    () =>
+      folderModal.classList.add(
+        "hidden"
+      );
+
+
+document
+  .getElementById(
+    "saveFolder"
+  )
+  .onclick =
+    () => {
+
+      const input =
+        document.getElementById(
+          "folderName"
+        );
+
+
+      const name =
+        input.value.trim();
+
+
+      if (!name) {
+
+        return;
+
+      }
+
+
+      folders.push({
+
+        id:
+          createID(),
+
+        name,
+
+        emoji:
+          folderIcons[
+            folders.length %
+            folderIcons.length
+          ]
+
+      });
+
+
+      saveFolders();
+
+
+      input.value = "";
+
+
+      folderModal.classList.add(
+        "hidden"
+      );
+
+
+      renderHome();
+
+    };
+
+
+document
+  .getElementById(
+    "newFolderFromCreate"
+  )
+  .onclick =
+    openFolderModal;
+
+
+/* =========================================================
+   CREATE FLASHCARD
+========================================================= */
+
+const questionType =
+  document.getElementById(
+    "questionType"
+  );
+
+
+questionType.onchange =
+  () => {
+
+    const isMCQ =
+      questionType.value ===
+      "mcq";
+
+
+    document
+      .getElementById(
+        "typedBox"
+      )
+      .classList.toggle(
+        "hidden",
+        isMCQ
+      );
+
+
+    document
+      .getElementById(
+        "mcqBox"
+      )
+      .classList.toggle(
+        "hidden",
+        !isMCQ
+      );
+
+
+    if (
+      isMCQ &&
+      document
+        .getElementById(
+          "choices"
+        )
+        .children.length ===
+        0
+    ) {
+
+      addChoice();
+      addChoice();
+      addChoice();
+      addChoice();
+
+    }
+
+  };
+
+
+document
+  .getElementById(
+    "addCard"
+  )
+  .onclick =
+    () => {
+
+      const folderID =
+        document
+          .getElementById(
+            "cardFolder"
+          )
+          .value;
+
+
+      const question =
+        document
+          .getElementById(
+            "newQuestion"
+          )
+          .value
+          .trim();
+
+
+      if (!question) {
+
+        alert(
+          "Write a question first."
+        );
+
+        return;
+
+      }
+
+
+      if (
+        questionType.value ===
+        "typed"
+      ) {
+
+        const answer =
+          document
+            .getElementById(
+              "typedAnswer"
+            )
+            .value
+            .trim();
+
+
+        if (!answer) {
+
+          alert(
+            "Write the correct answer."
+          );
+
+          return;
+
+        }
+
+
+        cards.push({
+
+          id:
+            createID(),
+
+          folderID,
+
+          question,
+
+          type:
+            "typed",
+
+          answer,
+
+          completed:
+            false
+
+        });
+
+      }
+
+
+      else {
+
+        const choices =
+          [
+            ...
+            document
+              .getElementById(
+                "choices"
+              )
+              .querySelectorAll(
+                "input"
+              )
+          ]
+          .map(
+            input =>
+              input.value.trim()
+          )
+          .filter(Boolean);
+
+
+        const correctIndex =
+          Number(
+            document
+              .getElementById(
+                "correctChoice"
+              )
+              .value
+          );
+
+
+        if (
+          choices.length <
+          2
+        ) {
+
+          alert(
+            "Add at least two choices."
+          );
+
+          return;
+
+        }
+
+
+        cards.push({
+
+          id:
+            createID(),
+
+          folderID,
+
+          question,
+
+          type:
+            "mcq",
+
+          choices,
+
+          answer:
+            choices[
+              correctIndex
+            ],
+
+          completed:
+            false
+
+        });
+
+      }
+
+
+      saveCards();
+
+
+      /* reset */
+
+      document
+        .getElementById(
+          "newQuestion"
+        )
+        .value = "";
+
+
+      document
+        .getElementById(
+          "typedAnswer"
+        )
+        .value = "";
+
+
+      renderHome();
+
+
+      alert(
+        "Flashcard planted 🌱"
+      );
+
+    };
+
+
+/* =========================================================
+   FOLDER SELECT
+========================================================= */
+
+function populateFolderSelect() {
+
+  const select =
+    document.getElementById(
+      "cardFolder"
+    );
+
+
+  select.innerHTML =
+    folders
+      .map(
+        folder => `
+          <option
+            value="${folder.id}">
+
+            ${folder.emoji}
+            ${
+              escapeHTML(
+                folder.name
+              )
+            }
+
+          </option>
+        `
+      )
+      .join("");
+
+}
+
+
+/* =========================================================
+   MCQ CREATION
+========================================================= */
+
+function addChoice() {
+
+  const container =
+    document.getElementById(
+      "choices"
+    );
+
+
+  const row =
+    document.createElement(
+      "div"
+    );
+
+
+  row.className =
+    "choice-row";
+
+
+  row.innerHTML = `
+
+    <input
+      placeholder="
+        Choice ${
+          container.children.length + 1
+        }">
+
+
+    <button
+      class="remove-choice">
+
+      ×
+
+    </button>
+
+  `;
+
+
+  row
+    .querySelector(
+      ".remove-choice"
+    )
+    .onclick =
+      () => {
+
+        if (
+          container.children.length <=
+          2
+        ) {
+
+          return;
+
+        }
+
+
+        row.remove();
+
+        refreshCorrectChoices();
+
+      };
+
+
+  row
+    .querySelector(
+      "input"
+    )
+    .oninput =
+      refreshCorrectChoices;
+
+
+  container.appendChild(
+    row
+  );
+
+
+  refreshCorrectChoices();
+
+}
+
+
+document
+  .getElementById(
+    "addChoice"
+  )
+  .onclick =
+    addChoice;
+
+
+function refreshCorrectChoices() {
+
+  const select =
+    document.getElementById(
+      "correctChoice"
+    );
+
+
+  const inputs =
+    [
+      ...
+      document
+        .getElementById(
+          "choices"
+        )
+        .querySelectorAll(
+          "input"
+        )
+    ];
+
+
+  select.innerHTML = "";
+
+
+  inputs.forEach(
+    (input,index) => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        index;
+
+
+      option.textContent =
+        input.value.trim() ||
+        `Choice ${index + 1}`;
+
+
+      select.appendChild(
+        option
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   GARDEN
+========================================================= */
+
+const EXAM_DATE =
+  new Date(
+    "2026-11-19T00:00:00"
+  );
+
+
+const PLAN_START =
+  new Date(
+    "2026-09-17T00:00:00"
+  );
+
+
+function getDaysUntilExam() {
+
+  const now =
+    new Date();
+
+
+  now.setHours(
+    0,0,0,0
+  );
+
+
+  return Math.max(
+    0,
+    Math.ceil(
+      (
+        EXAM_DATE -
+        now
+      ) /
+      (
+        1000 *
+        60 *
+        60 *
+        24
+      )
+    )
+  );
+
+}
+
+
+function getTimeProgress() {
+
+  const now =
+    new Date();
+
+
+  now.setHours(
+    0,0,0,0
+  );
+
+
+  const total =
+    EXAM_DATE -
+    PLAN_START;
+
+
+  const passed =
+    now -
+    PLAN_START;
+
+
+  return Math.min(
+    1,
+    Math.max(
+      0,
+      passed /
+      total
+    )
+  );
+
+}
+
+
+function renderExamGarden() {
+
+  const days =
+    getDaysUntilExam();
+
+
+  const timeProgress =
+    getTimeProgress();
+
+
+  document
+    .getElementById(
+      "examDays"
+    )
+    .textContent =
+    days;
+
+
+  const totalCards =
+    cards.length;
+
+
+  const completed =
+    cards.filter(
+      card =>
+        card.completed
+    ).length;
+
+
+  const cardProgress =
+    totalCards
+      ? completed /
+        totalCards
+      : 0;
+
+
+  /*
+     Garden growth:
+
+     60% = time passing
+     40% = study completion
+  */
+
+  const growth =
+    Math.min(
+      1,
+      timeProgress * .6 +
+      cardProgress * .4
+    );
+
+
+  const tree =
+    document.getElementById(
+      "growthTree"
+    );
+
+
+  if (tree) {
+
+    tree.style.transform =
+      `scale(${
+        .45 +
+        growth * .55
+      })`;
+
+  }
+
+
+  const crown =
+    document.getElementById(
+      "treeCrown"
+    );
+
+
+  if (crown) {
+
+    crown.innerHTML = "";
+
+
+    const leafCount =
+      Math.max(
+        3,
+        Math.floor(
+          growth * 18
+        )
+      );
+
+
+    for (
+      let i = 0;
+      i < leafCount;
+      i++
+    ) {
+
+      const leaf =
+        document.createElement(
+          "div"
+        );
+
+
+      leaf.className =
+        "tree-leaf";
+
+
+      leaf.style.setProperty(
+        "--leaf-size",
+        `${
+          14 +
+          Math.random() * 12
+        }px`
+      );
+
+
+      leaf.style.setProperty(
+        "--rotation",
+        `${
+          -40 +
+          Math.random() * 80
+        }deg`
+      );
+
+
+      crown.appendChild(
+        leaf
+      );
+
+    }
+
+  }
+
+
+  document
+    .getElementById(
+      "gardenProgress"
+    )
+    .style.width =
+      `${growth * 100}%`;
+
+
+  const note =
+    document.getElementById(
+      "gardenNote"
+    );
+
+
+  if (
+    days === 0
+  ) {
+
+    note.textContent =
+      "Today is the day. 🌳";
+
+  }
+
+  else if (
+    days <= 7
+  ) {
+
+    note.textContent =
+      "Final stretch. Keep watering the tree. 🌿";
+
+  }
+
+  else if (
+    growth >= .75
+  ) {
+
+    note.textContent =
+      "Your garden is getting strong. Keep going. 🌳";
+
+  }
+
+  else if (
+    growth >= .45
+  ) {
+
+    note.textContent =
+      "Your consistency is starting to show. 🍃";
+
+  }
+
+  else if (
+    growth >= .2
+  ) {
+
+    note.textContent =
+      "Small steps are becoming something bigger. 🌱";
+
+  }
+
+  else {
+
+    note.textContent =
+      "Plant the habit first. The tree will follow. 🌱";
+
+  }
+
+}
+
+
+/* =========================================================
+   BACKGROUND LEAVES
+========================================================= */
+
+function createBackgroundLeaves() {
+
+  const container =
+    document.getElementById(
+      "gardenBackground"
+    );
+
+
+  container.innerHTML = "";
+
+
+  const symbols = [
+    "🍃",
+    "🌿",
+    "🌱",
+    "☘️"
+  ];
+
+
+  const count =
+    5 +
+    Math.floor(
+      getTimeProgress() * 12
+    );
+
+
+  for (
+    let i = 0;
+    i < count;
+    i++
+  ) {
+
+    const leaf =
+      document.createElement(
+        "div"
+      );
+
+
+    leaf.className =
+      "bg-leaf";
+
+
+    leaf.textContent =
+      symbols[
+        i %
+        symbols.length
+      ];
+
+
+    leaf.style.left =
+      `${Math.random() * 100}%`;
+
+
+    leaf.style.top =
+      `${Math.random() * 100}%`;
+
+
+    leaf.style.setProperty(
+      "--duration",
+      `${
+        5 +
+        Math.random() * 7
+      }s`
+    );
+
+
+    leaf.style.setProperty(
+      "--delay",
+      `${
+        Math.random() * 5
+      }s`
+    );
+
+
+    container.appendChild(
+      leaf
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   DATE / STATS
+========================================================= */
+
+function getTodayKey() {
+
+  const now =
+    new Date();
+
+
+  return (
+    now.getFullYear() +
+    "-" +
+    String(
+      now.getMonth() + 1
+    ).padStart(2,"0") +
+    "-" +
+    String(
+      now.getDate()
+    ).padStart(2,"0")
+  );
+
+}
+
+
+function ensureToday(
+  key
+) {
+
+  if (
+    !stats.history[key]
+  ) {
+
+    stats.history[key] = {
+
+      xp: 0,
+
+      attempts: 0,
+
+      correct: 0
+
+    };
+
+
+    saveStats();
+
+  }
+
+}
+
+
+/* =========================================================
+   STREAK
+========================================================= */
+
+function calculateStreak() {
+
+  let streak = 0;
+
+  let date =
+    new Date();
+
+
+  while (true) {
+
+    const key =
+      date.getFullYear() +
+      "-" +
+      String(
+        date.getMonth() + 1
+      ).padStart(2,"0") +
+      "-" +
+      String(
+        date.getDate()
+      ).padStart(2,"0");
+
+
+    if (
+      stats.history[key] &&
+      stats.history[key]
+        .correct > 0
+    ) {
+
+      streak++;
+
+      date.setDate(
+        date.getDate() - 1
+      );
+
+    }
+
+    else {
+
+      break;
+
+    }
+
+  }
+
+
+  return streak;
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function createID() {
+
+  return (
+    Date.now() +
+    Math.random()
+      .toString(36)
+      .slice(2)
+  );
+
+}
+
+
+function shuffle(array) {
+
+  for (
+    let i =
+      array.length - 1;
+
+    i > 0;
+
+    i--
+  ) {
+
+    const j =
+      Math.floor(
+        Math.random() *
+        (i + 1)
+      );
+
+
+    [
+      array[i],
+      array[j]
+    ] =
+    [
+      array[j],
+      array[i]
+    ];
+
+  }
+
+
+  return array;
+
+}
+
+
+function normalize(
+  text
+) {
+
+  return String(text)
+    .trim()
+    .replace(
+      /\s+/g,
+      " "
+    )
+    .toLowerCase();
+
+}
+
+
+function escapeHTML(
+  text
+) {
+
+  return String(text)
+    .replace(
+      /[&<>"']/g,
+      char =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[char])
+    );
+
+}
+
+
+function saveFolders() {
+
+  localStorage.setItem(
+    FOLDER_KEY,
+    JSON.stringify(
+      folders
+    )
+  );
+
+}
+
+
+function saveCards() {
+
+  localStorage.setItem(
+    CARD_KEY,
+    JSON.stringify(
+      cards
+    )
+  );
+
+}
+
+
+function saveStats() {
+
+  localStorage.setItem(
+    STATS_KEY,
+    JSON.stringify(
+      stats
+    )
+  );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+renderHome();
+
+</script>
+
+</body>
+</html>
